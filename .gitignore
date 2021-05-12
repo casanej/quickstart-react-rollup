@@ -1,0 +1,6 @@
+#excluding folders
+node_modules
+build
+
+#excluding files
+*.lock
