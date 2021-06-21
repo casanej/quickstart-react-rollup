@@ -3,22 +3,26 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, PalletModel, PalletsType, theme } from 'assets';
 
 export const App = (): ReactElement => {
-    const [currentTheme, setCurrentTheme] = useState<PalletModel>(theme.pallet.dark);
+    const [currentPallet, setCurrentPallet] = useState<PalletModel>(theme.pallet.dark);
 
     const changeTheme = (themeType: PalletsType) => {
         switch(themeType) {
-        case 'dark': setCurrentTheme(theme.pallet.dark); break;
-        case 'light': setCurrentTheme(theme.pallet.light); break;
+        case 'dark': theme.currentPallet = theme.pallet.dark; break;
+        case 'light': theme.currentPallet = theme.pallet.light; break;
         }
-    }
+    };
 
     useEffect(() => {
         changeTheme('dark');
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        setCurrentPallet(theme.currentPallet);
+    }, [theme.currentPallet]);
 
     return (
-        <ThemeProvider theme={{...theme, ...{ currentTheme: currentTheme }}} >
-            <GlobalStyle theme={currentTheme} />
+        <ThemeProvider theme={{...theme, ...{ currentPallet }}} >
+            <GlobalStyle theme={theme} />
             <div><h1>PROJETO QUICK STARTER</h1></div>
         </ThemeProvider>
     );

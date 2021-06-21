@@ -1,5 +1,6 @@
 export * from './dark'
 export * from './light'
+export * from './colors'
 
 export type PalletsType = 'light' | 'dark';
 

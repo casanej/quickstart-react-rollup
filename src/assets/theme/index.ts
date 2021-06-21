@@ -1,11 +1,13 @@
-import { createGlobalStyle, ThemePattern } from 'styled-components';
-import { PalletModel, darkTheme, lightTheme, ThemePatternPallet } from './pallets';
+import { createGlobalStyle, DefaultTheme } from 'styled-components';
+import { PalletModel, darkTheme, lightTheme, ThemePatternPallet, colors } from './pallets';
 
 export * from './pallets'
 
 declare module 'styled-components' {
-    export interface ThemePattern {
+    export interface DefaultTheme {
         pallet: ThemePatternPallet;
+        currentPallet: PalletModel;
+        colors: typeof colors
     }
 }
 
@@ -20,8 +22,8 @@ export const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
     }
 
     body {
-        background-color: ${props => props.theme.background.primary};
-        color: ${props => props.theme.text.primary};
+        background-color: ${props => props.theme.currentPallet.background.primary};
+        color: ${props => props.theme.currentPallet.text.primary};
         font-family: sans-serif;
 
         width: 100%;
@@ -44,6 +46,10 @@ export const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
 
     #root {
         height: 100vh;
+        width: 100vw;
+        position: relative;
+        justify-content: flex-start;
+        align-items: flex-start;
     }
 `
 
@@ -51,5 +57,7 @@ export const theme = {
     pallet: {
         light: lightTheme,
         dark: darkTheme
-    }
-} as ThemePattern
+    },
+    currentPallet: darkTheme,
+    colors
+} as DefaultTheme
