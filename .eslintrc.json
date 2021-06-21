@@ -15,6 +15,7 @@
             "jsx": true
         },
         "ecmaVersion": 2020,
+        "extraFileExtensions": [".jpeg", ".png", ".gif", ".jpg", ".svg", ".bmp", ".tif", ".tiff", ".webp"],
         "project": [
             "./tsconfig.json"
         ],

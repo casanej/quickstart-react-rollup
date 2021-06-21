@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "start": "rollup -cw"
+    "start": "rollup -cw --dev"
   },
   "dependencies": {
     "react": "^17.0.2",

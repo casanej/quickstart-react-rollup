@@ -17,6 +17,7 @@ const args = yargs.option('dev', {
 }).argv;
 
 const dev = args.dev || process.env.ROLLUP_WATCH === 'true';
+const port =  process.env.APP_PORT || 3000;
 
 export default {
     input: "src/index.tsx",
@@ -26,6 +27,10 @@ export default {
         sourcemap: true,
     },
     plugins: [
+        image({
+            extensions: /\.(png|jpg|jpeg|gif|svg)$/,
+            limit: 10000
+        }),
         eslint({
            fix: true,
            throwOnWarning: false,
@@ -43,6 +48,7 @@ export default {
         babel({
             exclude: 'node_modules/**',
             presets: ["@babel/preset-react"],
+            extensions: ['.js', '.svg', '.png', '.jpg'],
             babelHelpers: 'bundled'
         }),
         replace({
@@ -51,13 +57,12 @@ export default {
         }),
         peerDepsExternal(),
         typescript({ useTsconfigDeclarationDir: true }),
-        image(),
         dev && serve({
             open: false,
             verbose: true,
             contentBase: ["", "public"],
-            host: "localhost",
-            port: 3000,
+            port,
+            historyApiFallback: true
         }),
         dev && livereload({ watch: "build" })
     ]
